@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NBA Recommender</title>
+    <meta name="description" content="NBA Recommender">
+    <meta name="Jeff" content="SitePoint">
+    <link rel="stylesheet" href="src/style.css">
+</head>
+
+<body>
+    <div class="master">
+        <h1>NBA Recommender</h1>
+        <div class="input">
+            Team Name:<br>
+            <input type="text" id="team" name="teamBox" placeholder="Your team name">
+            <input type="text" id="playerNumber" name="teamBox" placeholder="Limit of players"><br>
+            <input type="button" name="clickbtn" value="Search Players" onclick="find_player()">
+        </div>
+        <div class="output">
+            <br>
+            Players:<br>
+            <p id="players"></p>
+            <br>
+        </div>
+    </div>
+    <script src="src/main.js"></script>
+</body>
+
+</html>
