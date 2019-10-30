@@ -30,7 +30,7 @@
           <img
             src="./images/background.jpg"
             alt="Welcome!"
-            class='img-fluid w-100'
+            class="img-fluid w-100"
           />
         </div>
       </div>
@@ -43,6 +43,7 @@
       /> -->
 
       <h1>NBA Player Recommender</h1>
+      
       <div class="input">
         Team Name:<br />
         <input
@@ -51,18 +52,17 @@
           name="teamBox"
           placeholder="Your team name"
         />
+
         <input
           type="text"
           id="playerNumber"
           name="teamBox"
           placeholder="Limit of players"
         /><br />
-        <input
-          type="button"
-          name="clickbtn"
-          value="Search Players"
-          onclick="find_player()"
-        />
+        <button type="button" class="btn btn-primary" onclick="find_player()">
+          Search Players
+        </button>
+
       </div>
       <div class="output">
         <br />
