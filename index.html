@@ -1,32 +1,78 @@
-<!doctype html>
-
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html>
+  <head>
     <title>NBA Recommender</title>
-    <meta name="description" content="NBA Recommender">
-    <meta name="Jeff" content="SitePoint">
-    <link rel="stylesheet" href="src/style.css">
-</head>
+    <link rel="icon" href="./images/background.jpg" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<body>
-    <div class="master">
-        <h1>NBA Recommender</h1>
-        <div class="input">
-            Team Name:<br>
-            <input type="text" id="team" name="teamBox" placeholder="Your team name">
-            <input type="text" id="playerNumber" name="teamBox" placeholder="Limit of players"><br>
-            <input type="button" name="clickbtn" value="Search Players" onclick="find_player()">
-        </div>
-        <div class="output">
-            <br>
-            Players:<br>
-            <p id="players"></p>
-            <br>
-        </div>
+  <body>
+    <div class="container">
+      <ul class="nav nav-tabs bg-light">
+        <li class="nav-item" style="width: 10%">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+        <li class="nav-item" style="width: 10%">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+      </ul>
     </div>
-    <script src="src/main.js"></script>
-</body>
 
+    <div class="container-fluid no-padding">
+      <div class="row">
+        <div class="col-md-12">
+          <img
+            src="./images/background.jpg"
+            alt="Welcome!"
+            class="img-fluid w-100"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <!-- <img
+        src="./images/background.jpg"
+        alt="Welcome!"
+        style="max-width: 1200px"
+      /> -->
+
+      <h1>NBA Player Recommender</h1>
+      
+      <div class="input">
+        Team Name:<br />
+        <input
+          type="text"
+          id="team"
+          name="teamBox"
+          placeholder="Your team name"
+        />
+
+        <input
+          type="text"
+          id="playerNumber"
+          name="teamBox"
+          placeholder="Limit of players"
+        /><br />
+        <button type="button" class="btn btn-primary" onclick="find_player()">
+          Search Players
+        </button>
+
+      </div>
+      <div class="output">
+        <br />
+        <p id="players"></p>
+        <br />
+      </div>
+
+      <div class="row" style="height: 500px"></div>
+    </div>
+
+    <script src="src/main.js"></script>
+  </body>
 </html>

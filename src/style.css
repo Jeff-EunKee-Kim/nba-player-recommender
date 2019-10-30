@@ -1,25 +1,30 @@
 .master {
-    color: blue;
-    margin-left: 10%;
-    font-family: fantasy;
-    font-size: 200%;
+  color: blue;
+  margin-left: 10%;
+  font-family: impact;
+  font-size: 200%;
 }
 .body {
-    background-color: yellow; 
+  background-color: yellow;
+}
+
+.backgroundImage {
+  max-width: 250px;
+  max-height: 250px;
 }
 
 input[type="text"] {
-    width: 300px;
-    height: 50px;
-    margin: 10px;
-    font-size: 30px;
-    background-color: lightgreen;
+  width: 300px;
+  height: 50px;
+  margin: 10px;
+  font-size: 30px;
+  background-color: lightgreen;
 }
 
 input[type="button"] {
-    width: 300px;
-    height: 50px;
-    margin: 10px;
-    font-size: 30px;
-    background-color: lightgreen;
+  width: 300px;
+  height: 50px;
+  margin: 10px;
+  font-size: 30px;
+  background-color: lightgreen;
 }
