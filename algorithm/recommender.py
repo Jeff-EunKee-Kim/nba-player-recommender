@@ -2,19 +2,24 @@ import numpy
 import math
 import heapq
 
-# input = (team_name, n)
-# team_name = name of team that we want to recommend players for
-# n = number of players to be recommended 
+# ideal player will be a dictionary
+# key = name of statistic
+# value = numerical value of statistic
 
-# data will be in dictionary form
-# key = player name; value = numpy array of data
-
-def read_data_file(filename):
+def read_data_file(filename, ideal_player_dict):
+    # key = title of statistic
+    # value = numerical value of statistic
     file = open(filename)
     first_line = ("".join(file.readline().strip("\n"))).split(",")
     player_name = first_line.index("PLAYER_NAME")
     team_id = first_line.index("TEAM_ID")
-    stats = ["AST_PCT", "AST_TO", "OREB_PCT", "DREB_PCT", "TM_TOV_PCT", "EFG_PCT", "TS_PCT", "PACE"]
+    # create the ideal player using dict
+    ideal_player = []
+    stats = ideal_player_dict.keys()
+    #stats = ["AST_PCT", "AST_TO", "OREB_PCT", "DREB_PCT", "TM_TOV_PCT", "EFG_PCT", "TS_PCT", "PACE"]
+    for stat in stats:
+        ideal_player.append(ideal_player_dict[stat])
+    ideal_player_array = numpy.asarray(ideal_player)
     indices_of_stats = []
     for stat in stats:
         indices_of_stats.append(first_line.index(stat))
@@ -25,7 +30,7 @@ def read_data_file(filename):
         for id in indices_of_stats:
             stats_list.append(float(newline[id]))
         dict_of_players[(newline[player_name], int(newline[team_id]))] = numpy.asarray(stats_list)
-    return dict_of_players
+    return (dict_of_players, ideal_player_array)
 
 
 def n_nearest_neighbor(dict_of_players, ideal_player, team_id, n):
@@ -47,13 +52,8 @@ def compute_cos_similarity(point1, point2):
     return float(numerator)/float(denominator)
 
 ### Run Stuff Below
-dict_of_players = read_data_file("advanced_players.csv")
+(dict_of_players, ideal_player_array) = read_data_file("advanced_players.csv")
 n = 6
-players = n_nearest_neighbor(dict_of_players, dict_of_players[("Alfonzo McKinnie", 1610612744)], 1610612744, n)
+players = n_nearest_neighbor(dict_of_players, ideal_player_array, 1610612744, n)
 # Get the team name from the team id in the advanced.csv file
 print ("The top " + str(n) + " recommended players for " + "INSERT TEAM NAME HERE" + " are: " + str(players))
-
-
-
-
-
