@@ -10,7 +10,8 @@ function find_player() {
 
     document.getElementById("players").innerHTML = result; 
 
-    testUrl = "https://cors-anywhere.herokuapp.com/https://17jn058fdh.execute-api.us-east-1.amazonaws.com/test/"
+    // testUrl = "https://cors-anywhere.herokuapp.com/https://17jn058fdh.execute-api.us-east-1.amazonaws.com/test/"
+    testUrl = "https://cors-anywhere.herokuapp.com/https://17jn058fdh.execute-api.us-east-1.amazonaws.com/test2/"
     // testUrl = "https://17jn058fdh.execute-api.us-east-1.amazonaws.com/noproxy/"
     
     testUrl += "?" + "Team=" + team + "&Limit=" + limit.toString()
