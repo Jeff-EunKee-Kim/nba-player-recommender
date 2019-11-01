@@ -162,8 +162,8 @@ def compute_cos_similarity(point1, point2):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "Phoenix Suns"
-    n = 9
+    my_team = "chicagobulls"
+    n = 5
     ######### Query #########
 
     # get average stats
