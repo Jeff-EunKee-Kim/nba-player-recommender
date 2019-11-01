@@ -4,5 +4,4 @@ This is a software that will recommend NBA players to a specific team based sole
 
 
 ## Algorithms
-- K-means clustering
 - Nearest Neighbors
