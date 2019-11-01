@@ -31,11 +31,30 @@ function find_player() {
             // alert(xhr.responseText);
             response = JSON.parse(xhr.responseText);
             
-            team = response.Team
-            players = response.Players
-            text = "<br>"
+            team = response.Team;
+            players = response.Players;
+            text = "<br>";
+
             for (var i = 0; i < players.length; i++) {
-                text += (i+1).toString() + ". " + players[i] + "<br>";
+                var split = players[i].split(" ");
+                imglink = "https://nba-players.herokuapp.com/players/" + split[1] + "/" + split[0];
+                var xml = new XMLHttpRequest();
+                xml.open('GET', imglink, false);
+                xml.send();
+                var res = xml.responseText;
+
+                if(res.startsWith("Sorry")) {
+                    text += (i + 1).toString() + ". " + players[i] + "    (No image Available) <br>";
+                }else{
+                    text += (i + 1).toString() + ". " + players[i] + "<img src=" + imglink + " alt=" + players[i] + "> <br>";
+                }
+                // }
+                // var n = str.startsWith("Hello");
+                // console.log(xml);
+                // console.log(xml.responseType);
+                // xhr.onreadystatechange = processPlayer;
+                // text += (i + 1).toString() + ". <img src= " + imglink + " alt=" + players[i] + "> " + players[i] + "<br>";
+                // console.log(imglink); 
             }
             document.getElementById("players").innerHTML = "Team is: " + team + "<br>" + "Players are: " + text;
         }
