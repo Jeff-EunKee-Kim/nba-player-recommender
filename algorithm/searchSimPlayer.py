@@ -2,6 +2,7 @@ import csv
 import numpy
 import math
 import heapq
+import operator
 
 # Ideal Player Algorithm below
 
@@ -21,8 +22,9 @@ def openCSV():
             categories.append(new)
 
         # stats we are looking for
-        looking_for_stats = ['AST_PCT', 'AST_TO', 'OREB_PCT',
-                             'DREB_PCT', 'TM_TOV_PCT', 'EFG_PCT', 'TS_PCT', 'PACE']
+        # looking_for_stats = ['AST_PCT', 'AST_TO', 'OREB_PCT',
+        #                      'DREB_PCT', 'TM_TOV_PCT', 'EFG_PCT', 'TS_PCT', 'PACE']
+        looking_for_stats = ['AGE', 'FG_PCT', 'FG3_PCT','FT_PCT','REB', 'AST','TOV','STL','BLK']
 
         # get category indeces that we want
         want_categories = []
@@ -98,7 +100,7 @@ def getTargetStats(player, categories, avg_dict):
     # print(target_stats)
 
     # look through 
-    return target_stats
+    return target_stats, playerDict
 
 
 def getPlayerDict():
@@ -107,7 +109,7 @@ def getPlayerDict():
 
     filename = '../advanced_players.csv'
 
-    # Getting all of the resident rankings
+    # Getting all of the players
     with open(filename) as file:
         linereader = csv.reader(file)
 
@@ -130,48 +132,89 @@ def formatName(team):
     return formatted_team.lower()
 
 
-# Recommender Algorithm below
-def read_data_file(filename, ideal_player_dict):
-    # key = title of statistic
-    # value = numerical value of statistic
-    file = open(filename)
-    first_line = ("".join(file.readline().strip("\n"))).split(",")
-    player_name = first_line.index("PLAYER_NAME")
-    team_id = first_line.index("TEAM_ID")
-    # create the ideal player using dict
-    ideal_player = []
-    stats = ideal_player_dict.keys()
-    #stats = ["AST_PCT", "AST_TO", "OREB_PCT", "DREB_PCT", "TM_TOV_PCT", "EFG_PCT", "TS_PCT", "PACE"]
-    for stat in stats:
-        ideal_player.append(ideal_player_dict[stat])
-    ideal_player_array = numpy.asarray(ideal_player)
-    indices_of_stats = []
-    for stat in stats:
-        indices_of_stats.append(first_line.index(stat))
-    dict_of_players = {}
-    for line in file:
-        newline = ("".join(line.strip("\n"))).split(",")
-        stats_list = []
-        for id in indices_of_stats:
-            stats_list.append(float(newline[id]))
-        dict_of_players[(newline[player_name], int(
-            newline[team_id]))] = numpy.asarray(stats_list)
-    return (dict_of_players, ideal_player_array)
+def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n):
+    # the closest players to the specified person
+    closest_players = []
+
+    # get similarities of everyone
+    simDict = dict()
+
+    # stats we want to compare
+    statCategories = avg_dict.keys()
+
+    # turn target_stats into array so can dot product it
+    targetStats = []
+    for stat in statCategories:
+        targetStats.append(target_stats[categories[stat]])
+
+    # look through all players
+    for player in playerDict:
+        # only check players not on the team of person searching
+        if int(playerDict[player][2]) != team_id:
+            # look through stats we want to compare
+            compStats = []
+            for stat in statCategories:
+                # print(playerDict[player][stat])
+                compStats.append(float(playerDict[player][stat]))
 
 
-def n_nearest_neighbor(dict_of_players, ideal_player, team_id, n):
-    list = []
-    for (person, person_team_id) in dict_of_players.keys():
-        if team_id != person_team_id:
-            (player, val) = (person, compute_cos_similarity(
-                ideal_player, dict_of_players[(person, person_team_id)]))
-            list.append((player, val))
-    list = sorted(list, key=lambda x: x[1])
-    list.reverse()
-    recommended_players = []
-    for i in range(n):
-        recommended_players.append(list[i][0])
-    return recommended_players
+            simDict[player] = float(compute_cos_similarity(compStats, targetStats))
+
+    # simDict = sorted(simDict, key=lambda x: x[1])
+    sorted_simDict = sorted(simDict.items(), key=operator.itemgetter(1))
+
+    # closest players
+    closest_players = []
+
+    for x in list(reversed(list(sorted_simDict)))[0:n]:
+        closest_players.append(x)
+
+    return closest_players
+
+
+
+# # Recommender Algorithm below
+# def read_data_file(filename, ideal_player_dict):
+#     # key = title of statistic
+#     # value = numerical value of statistic
+#     file = open(filename)
+#     first_line = ("".join(file.readline().strip("\n"))).split(",")
+#     player_name = first_line.index("PLAYER_NAME")
+#     team_id = first_line.index("TEAM_ID")
+#     # create the ideal player using dict
+#     ideal_player = []
+#     stats = ideal_player_dict.keys()
+#     #stats = ["AST_PCT", "AST_TO", "OREB_PCT", "DREB_PCT", "TM_TOV_PCT", "EFG_PCT", "TS_PCT", "PACE"]
+#     for stat in stats:
+#         ideal_player.append(ideal_player_dict[stat])
+#     ideal_player_array = numpy.asarray(ideal_player)
+#     indices_of_stats = []
+#     for stat in stats:
+#         indices_of_stats.append(first_line.index(stat))
+#     dict_of_players = {}
+#     for line in file:
+#         newline = ("".join(line.strip("\n"))).split(",")
+#         stats_list = []
+#         for id in indices_of_stats:
+#             stats_list.append(float(newline[id]))
+#         dict_of_players[(newline[player_name], int(
+#             newline[team_id]))] = numpy.asarray(stats_list)
+#     return (dict_of_players, ideal_player_array)
+
+
+# def n_nearest_neighbor(dict_of_players, ideal_player, team_id, n):
+#     list = []
+#     for (person, person_team_id) in dict_of_players.keys():
+#         if team_id != person_team_id:
+#             (player, val) = (person, compute_cos_similarity(
+#                 ideal_player, dict_of_players[(person, person_team_id)]))
+#             list.append((player, val))
+#     list = sorted(list, key=lambda x: x[1])
+#     list.reverse()
+#     recommended_players = []
+#     for i in range(n):
+#         recommended_players.append(list[i][0])
+#     return recommended_players
 
 
 def compute_cos_similarity(point1, point2):
@@ -187,10 +230,11 @@ def compute_cos_similarity(point1, point2):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "chicagobulls"
+    my_team = "torontoraptors"
     n = 5
     # player = "Grayson Allen"
     player = "Paul George"
+    # player = "Kawhi Leonard"
     ######### Query #########
 
     # get average stats
@@ -200,7 +244,7 @@ if __name__ == '__main__':
     team_id_dict = getTeamIDs(eachteam_stats)
 
     # get target stats for ideal player
-    target_stats = getTargetStats(player, categories, avg_dict)
+    target_stats, playerDict = getTargetStats(player, categories, avg_dict)
 
     # get the team_id of the team that wants recommendations
     my_team_name = formatName(my_team)
@@ -210,8 +254,7 @@ if __name__ == '__main__':
             team_id = int(team)
             break
 
-    ideal_player_dict = target_stats
-    print(ideal_player_dict)
-    (dict_of_players, ideal_player_array) = read_data_file("advanced_players.csv", ideal_player_dict)
-    # recommended_players = n_nearest_neighbor(dict_of_players, ideal_player_array, team_id, n)
-    # print ("The " + str(n) + " players recommended for " + str(my_team) + " are: " + str(recommended_players))
+    closestPlayers = closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n)
+
+    for player in closestPlayers:
+        print(player[0])

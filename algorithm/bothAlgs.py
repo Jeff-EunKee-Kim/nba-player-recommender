@@ -7,7 +7,7 @@ import heapq
 def openCSV():
     filename = '../advanced.csv'
 
-    # Getting all of the resident rankings
+    # Getting all of the players
     with open(filename) as file:
         linereader = csv.reader(file)
         
@@ -162,7 +162,8 @@ def compute_cos_similarity(point1, point2):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "chicagobulls"
+    # my_team = "chicagobulls"
+    my_team = "la clippers"
     n = 5
     ######### Query #########
 
