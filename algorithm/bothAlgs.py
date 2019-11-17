@@ -112,28 +112,30 @@ def percentDiff(thisteam, average):
 
 # Recommender Algorithm below
 def read_data_file(filename, ideal_player_dict):
-    # key = title of statistic
-    # value = numerical value of statistic
     file = open(filename)
     first_line = ("".join(file.readline().strip("\n"))).split(",")
     player_name = first_line.index("PLAYER_NAME")
     team_id = first_line.index("TEAM_ID")
-    # create the ideal player using dict
+    mpg_index = first_line.index("MIN")
+    # Create the ideal player using dict
     ideal_player = []
-    stats = ideal_player_dict.keys()
-    #stats = ["AST_PCT", "AST_TO", "OREB_PCT", "DREB_PCT", "TM_TOV_PCT", "EFG_PCT", "TS_PCT", "PACE"]
+    stats = ideal_player_dict.keys() # Will look like ["AST_PCT", "AST_TO",...,"PACE"]
     for stat in stats:
-        ideal_player.append(ideal_player_dict[stat])
-    ideal_player_array = numpy.asarray(ideal_player)
+        ideal_player.append(ideal_player_dict[stat]) #ideal_player = list of float values
+    ideal_player_array = numpy.asarray(ideal_player) #ideal_player_array = numpy array of float values
     indices_of_stats = []
     for stat in stats:
-        indices_of_stats.append(first_line.index(stat))
+        indices_of_stats.append(first_line.index(stat)) #indices_of_stats = indices of every stat we are interested in
     dict_of_players = {}
+    # Get the data for each player
     for line in file:
         newline = ("".join(line.strip("\n"))).split(",")
         stats_list = []
+        mpg_val = float(newline[mpg_index])
+        if mpg_val < 6.09: #Check if the player's MPG is enough to make them a valid recommendation, if not, skip them
+            continue
         for id in indices_of_stats:
-            stats_list.append(float(newline[id]))
+            stats_list.append(float(newline[id])) #stats_list = list of float values for the player's stats
         dict_of_players[(newline[player_name], int(newline[team_id]))] = numpy.asarray(stats_list)
     return (dict_of_players, ideal_player_array)
 
