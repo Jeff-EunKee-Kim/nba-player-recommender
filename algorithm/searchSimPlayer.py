@@ -6,7 +6,7 @@ import operator
 
 # get the categories
 def openCSV():
-    filename = '../advanced_players.csv'
+    filename = '../general_stats.csv'
 
     # Getting all of the resident rankings
     with open(filename) as file:
@@ -33,10 +33,7 @@ def openCSV():
         for i in looking_for_stats:
             if i in categories:
                 want_categories.append(categories.index(i))
-            else:
-                print(i)
 
-        # print categories
 
         # Create dict to hold total score for each category, then can find averages
         # create dict to hold output of average stats
@@ -67,8 +64,6 @@ def openCSV():
         # convert all sums to averages
         for stat in total_stats:
             avg_stats[stat] = total_stats[stat] / num_teams
-
-        print(avg_stats)
 
         return avg_stats, eachteam_stats_out, categories
 
@@ -133,7 +128,7 @@ def formatName(team):
     return formatted_team.lower()
 
 # find the most similar players to one specific player
-def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n):
+def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, my_player):
     # the closest players to the specified person
     closest_players = []
 
@@ -167,7 +162,13 @@ def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n):
     # closest players
     closest_players = []
 
-    for x in list(reversed(list(sorted_simDict)))[0:n]:
+    # exclude query player
+    topPlayer = list(reversed(list(sorted_simDict)))[0][0]
+    skip = 0
+    if my_player == topPlayer:
+        skip = 1
+
+    for x in list(reversed(list(sorted_simDict)))[0+skip:n+skip]:
         closest_players.append(x)
 
     return closest_players
@@ -198,10 +199,8 @@ if __name__ == '__main__':
 
     ######### Query #########
     my_team = "torontoraptors"
-    n = 5
-    # player = "Grayson Allen"
-    # player = "Paul George"
-    player = "Kawhi Leonard"
+    n = 8
+    player = "Stephen Curry"
     ######### Query #########
 
     # get average stats
@@ -216,10 +215,11 @@ if __name__ == '__main__':
     # get the team_id of the team that wants recommendations
     team_id = getTeamID(my_team)
 
-    closestPlayers = closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n)
+    closestPlayers = closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, player)
 
     print("Most similar players to %s:" % player)
     count = 1
     for player in closestPlayers:
         print("%d: %s" %(count,player[0]))
         count += 1
+    print('')
