@@ -7,7 +7,7 @@ import heapq
 
 
 def openCSV():
-    filename = '../advanced.csv'
+    filename = '../general_team.csv'
 
     # Getting all of the players
     with open(filename) as file:
@@ -21,8 +21,9 @@ def openCSV():
             categories.append(new)
 
         # stats we are looking for
-        looking_for_stats = ['AST_PCT', 'AST_TO', 'OREB_PCT',
-                             'DREB_PCT', 'TM_TOV_PCT', 'EFG_PCT', 'TS_PCT', 'PACE']
+        # looking_for_stats = ['AST_PCT', 'AST_TO', 'OREB_PCT',
+        #                      'DREB_PCT', 'TM_TOV_PCT', 'EFG_PCT', 'TS_PCT', 'PACE']
+        looking_for_stats = ['AGE', 'FG_PCT', 'FG3_PCT','FT_PCT','REB', 'AST','TOV','STL','BLK']
 
         # get category indeces that we want
         want_categories = []
@@ -78,6 +79,8 @@ def getIdealPlayer(avg_dict, eachteam_stats, categories, my_team):
         comparisons_dict[categories[i]] = percentDiff(
             team_stats[i], avg_dict[i])
 
+    print(comparisons_dict)
+
     return comparisons_dict
 
 
@@ -102,6 +105,8 @@ def getTargetStats(percent_diff_dict, avg_dict, categories):
         if percent_diff < 0:
             target_stats[categories[i]] = avg_dict[i] * (1 - percent_diff)
 
+    print(target_stats)
+
     return target_stats
 
 
@@ -123,6 +128,7 @@ def read_data_file(filename, ideal_player_dict):
     first_line = ("".join(file.readline().strip("\n"))).split(",")
     player_name = first_line.index("PLAYER_NAME")
     team_id = first_line.index("TEAM_ID")
+    mpg_index = first_line.index("MIN")
     # create the ideal player using dict
     ideal_player = []
     stats = ideal_player_dict.keys()
@@ -137,6 +143,9 @@ def read_data_file(filename, ideal_player_dict):
     for line in file:
         newline = ("".join(line.strip("\n"))).split(",")
         stats_list = []
+        mpg_val = float(newline[mpg_index])
+        if mpg_val < 12:
+            continue
         for id in indices_of_stats:
             stats_list.append(float(newline[id]))
         dict_of_players[(newline[player_name], int(
@@ -172,8 +181,7 @@ def compute_cos_similarity(point1, point2):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "chicagobulls"
-    # my_team = "la clippers"
+    my_team = "bostonceltics"
     n = 5
     ######### Query #########
 
@@ -199,10 +207,6 @@ if __name__ == '__main__':
             break
 
     ideal_player_dict = target_stats
-    print(ideal_player_dict)
-    (dict_of_players, ideal_player_array) = read_data_file(
-        "advanced_players.csv", ideal_player_dict)
-    recommended_players = n_nearest_neighbor(
-        dict_of_players, ideal_player_array, team_id, n)
-    print("The " + str(n) + " players recommended for " +
-          str(my_team) + " are: " + str(recommended_players))
+    (dict_of_players, ideal_player_array) = read_data_file("../general_stats.csv", ideal_player_dict)
+    recommended_players = n_nearest_neighbor(dict_of_players, ideal_player_array, team_id, n)
+    print ("The " + str(n) + " players recommended for " + str(my_team) + " are: " + str(recommended_players))
