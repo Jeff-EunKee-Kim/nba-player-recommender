@@ -144,7 +144,7 @@ def read_data_file(filename, ideal_player_dict):
         newline = ("".join(line.strip("\n"))).split(",")
         stats_list = []
         mpg_val = float(newline[mpg_index])
-        if mpg_val < 12:
+        if mpg_val < 7:
             continue
         for id in indices_of_stats:
             stats_list.append(float(newline[id]))
