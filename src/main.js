@@ -13,7 +13,8 @@ function find_sim_player() {
     testUrl = "https://cors-anywhere.herokuapp.com/https://ipjtqmyurh.execute-api.us-east-1.amazonaws.com/test/ideal/"
     
 
-    testUrl += "?" + "Team=" + team + "&Limit=" + limit.toString()
+    testUrl += "?" + "Team=" + team + "&Limit=" + limit.toString()+ "&Player=" + player;
+
     var url = new URL(testUrl);
     console.log(testUrl)
     // var url = new URL("https://17jn058fdh.execute-api.us-east-1.amazonaws.com/test");
@@ -21,7 +22,7 @@ function find_sim_player() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.send(JSON.stringify({ "Team": team, "Limit": limit }));
+    xhr.send(JSON.stringify({ "Team": team, "Limit": limit, "Player": player }));
 
     // xhr.send();
     xhr.onreadystatechange = processRequest;
@@ -32,6 +33,8 @@ function find_sim_player() {
             
             team = response.Team;
             players = response.Players;
+            console.log(team)
+            console.log(players)
             text = "<br>";
 
             for (var i = 0; i < players.length; i++) {
@@ -41,6 +44,12 @@ function find_sim_player() {
                 xml.open('GET', imglink, false);
                 xml.send();
                 var res = xml.responseText;
+
+                if(res.startsWith("Sorry")) {
+                    text += (i + 1).toString() + ". " + players[i] + "    (No image Available) <br>";
+                }else{
+                    text += (i + 1).toString() + ". " + players[i] + "<img src=" + imglink + " alt=" + players[i] + "> <br>";
+                }
             }
             document.getElementById("players").innerHTML = "Team is: " + team + "<br>" + "Players are: " + text;
         }
