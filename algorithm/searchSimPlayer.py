@@ -22,7 +22,7 @@ def openCSV():
         # stats we are looking for
         # looking_for_stats = ['AST_PCT', 'AST_TO', 'OREB_PCT',
         #                      'DREB_PCT', 'TM_TOV_PCT', 'EFG_PCT', 'TS_PCT', 'PACE']
-        looking_for_stats = ['AGE', 'FG_PCT', 'FG3_PCT','FT_PCT','REB', 'AST','TOV','STL','BLK']
+        looking_for_stats = ['FG_PCT', 'FG3_PCT','FT_PCT','REB', 'AST','TOV','STL','BLK']
 
         # get category indeces that we want
         want_categories = []
@@ -87,15 +87,13 @@ def getTargetStats(player, categories, avg_dict):
     playerDict = getPlayerDict()
 
     # find stats for the query player
-    queryPlayer = playerDict[player]
+    my_player = formatName(player)
+    queryPlayer = playerDict[my_player]
 
     # find corresponding stats for the query player
     for cat in avg_dict:
         target_stats[categories[cat]] = float(queryPlayer[cat])
 
-    # print(target_stats)
-
-    # look through
     return target_stats, playerDict
 
 # get a dictionary with all the players and their stats
@@ -104,6 +102,9 @@ def getPlayerDict():
     playerDict = dict()
 
     filename = '../advanced_players.csv'
+
+    # mpg_index = first_line.index("MIN")
+    # gp_index = first_line.index("GP")
 
     # Getting all of the players
     with open(filename) as file:
@@ -116,9 +117,21 @@ def getPlayerDict():
             new = i.replace(' ', '')
             categories.append(new)
 
+        # filtering
+        mpg_index = categories.index("MIN")
+        gp_index = categories.index("GP")
+
         # get each player
         for line in linereader:
-            playerDict[line[1]] = line
+            name = formatName(line[1])
+
+            # filtering
+            mpg_val = float(line[mpg_index])
+            gp_val = int(line[gp_index])
+            # if play under 7 minutes on average, or less than 15 games, skip them
+            if mpg_val < 7 or gp_val < 15:
+                continue
+            playerDict[name] = line
 
         return playerDict
 
@@ -142,7 +155,7 @@ def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, m
     targetStats = []
     for stat in statCategories:
         targetStats.append(target_stats[categories[stat]])
-
+    
     # look through all players
     for player in playerDict:
         # only check players not on the team of person searching
@@ -151,9 +164,10 @@ def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, m
             compStats = []
             for stat in statCategories:
                 # print(playerDict[player][stat])
+                playerName = playerDict[player][1]
                 compStats.append(float(playerDict[player][stat]))
 
-            simDict[player] = float(
+            simDict[playerName] = float(
                 compute_cos_similarity(compStats, targetStats))
 
     # simDict = sorted(simDict, key=lambda x: x[1])
@@ -165,10 +179,11 @@ def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, m
     # exclude query player
     topPlayer = list(reversed(list(sorted_simDict)))[0][0]
     skip = 0
-    if my_player == topPlayer:
+    if formatName(my_player) == formatName(topPlayer):
         skip = 1
 
     for x in list(reversed(list(sorted_simDict)))[0+skip:n+skip]:
+        # print(x)
         closest_players.append(x)
 
     return closest_players
@@ -198,9 +213,9 @@ def getTeamID(my_team, team_id_dict):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "torontoraptors"
+    my_team = "atlantahawks"
     n = 8
-    player = "Stephen Curry"
+    player = "quinn cook"
     ######### Query #########
 
     # get average stats
