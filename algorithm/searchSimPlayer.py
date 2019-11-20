@@ -183,7 +183,7 @@ def compute_cos_similarity(point1, point2):
     return float(numerator)/float(denominator)
 
 # get ID of the team you are on, so you don't get players on your team in the search
-def getTeamID(my_team):
+def getTeamID(my_team, team_id_dict):
     my_team_name = formatName(my_team)
     team_id = 0
     for team in team_id_dict.keys():
@@ -213,7 +213,7 @@ if __name__ == '__main__':
     target_stats, playerDict = getTargetStats(player, categories, avg_dict)
 
     # get the team_id of the team that wants recommendations
-    team_id = getTeamID(my_team)
+    team_id = getTeamID(my_team, team_id_dict)
 
     closestPlayers = closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, player)
 
