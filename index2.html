@@ -16,22 +16,19 @@
     <div class="container">
       <ul class="nav nav-tabs bg-light">
         <li class="navbar-brand">NBA Player Recommender</li>
-        <li class="nav-item" style="width: 15%">
-          <a class="nav-link" href="index.html">Home</a>
+        <li class="nav-item" style="width: 20%">
+          <a class="nav-link" href="index.html">Option 1</a>
         </li>
-        <li class="nav-item" style="width: 15%">
-          <a class="nav-link" href="option1.html">Option 1</a>
+        <li class="nav-item" style="width: 20%">
+          <a class="nav-link active" href="index2.html">Option 2</a>
         </li>
-        <li class="nav-item" style="width: 15%">
-          <a class="nav-link active" href="option2.html">Option 2</a>
-        </li>
-        <li class="nav-item" style="width: 15%">
+        <li class="nav-item" style="width: 20%">
           <a class="nav-link" href="about.html">About</a>
         </li>
       </ul>
     </div>
 
-    <!-- <div class="container-fluid no-padding">
+    <div class="container-fluid no-padding">
       <div class="row">
         <div class="col-md-12">
           <img
@@ -41,11 +38,10 @@
           />
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="container">
-      <br />
-      <h3>Option 2: Find someone similar to a specific player</h3>
+        <br/><h3>Option 2: Find someone similar to a specific player</h3>
       <br />
 
       <form style="display: inline-block;">
@@ -97,6 +93,7 @@
         </select>
       </form>
       <input
+       
         id="whichPlayer"
         name="playerinput"
         placeholder="Search similar player..."
@@ -109,15 +106,12 @@
       <button type="button" class="btn btn-warning" onclick="refresh()">
         Reset
       </button>
-      <div class="output">
-            <br />
-            <p id="players"></p>
-            <br />
-          </div>
     </div>
-    
-
-    <div class="row" style="height: 500px"></div>
+    <div class="output">
+      <br />
+      <p id="players"></p>
+      <br />
+    </div>
 
     <script src="src/main.js"></script>
   </body>
