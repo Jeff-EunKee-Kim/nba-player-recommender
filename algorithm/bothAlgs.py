@@ -129,6 +129,7 @@ def read_data_file(filename, ideal_player_dict):
     player_name = first_line.index("PLAYER_NAME")
     team_id = first_line.index("TEAM_ID")
     mpg_index = first_line.index("MIN")
+    gp_index = first_line.index("GP")
     # create the ideal player using dict
     ideal_player = []
     stats = ideal_player_dict.keys()
@@ -144,7 +145,8 @@ def read_data_file(filename, ideal_player_dict):
         newline = ("".join(line.strip("\n"))).split(",")
         stats_list = []
         mpg_val = float(newline[mpg_index])
-        if mpg_val < 7:
+        gp_val = int(newline[gp_index])
+        if mpg_val < 7 or gp_val < 15:
             continue
         for id in indices_of_stats:
             stats_list.append(float(newline[id]))
@@ -181,7 +183,7 @@ def compute_cos_similarity(point1, point2):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "bostonceltics"
+    my_team = "brooklyn nets"
     n = 5
     ######### Query #########
 
