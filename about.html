@@ -13,23 +13,26 @@
   </head>
 
   <body>
-    <div class="container">
-      <ul class="nav nav-tabs bg-light">
-          <li class="navbar-brand">NBA Player Recommender</li>
-        <li class="nav-item" style="width: 20%">
-          <a class="nav-link" href="index.html">Option 1</a>
-        </li>
-        <li class="nav-item" style="width: 20%">
-          <a class="nav-link" href="index2.html">Option 2</a>
-        </li>
-        <li class="nav-item" style="width: 20%">
-          <a class="nav-link active" href="about.html">About</a>
-        </li>
-      </ul>
-    </div>
+      <div class="container">
+          <ul class="nav nav-tabs bg-light">
+            <li class="navbar-brand">NBA Player Recommender</li>
+            <li class="nav-item" style="width: 15%">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item" style="width: 15%">
+                <a class="nav-link" href="option1.html">Option 1</a>
+              </li>
+            <li class="nav-item" style="width: 15%">
+              <a class="nav-link" href="option2.html">Option 2</a>
+            </li>
+            <li class="nav-item" style="width: 15%">
+              <a class="nav-link active" href="about.html">About</a>
+            </li>
+          </ul>
+        </div>
 
     <div class="container-fluid no-padding">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
             <img
               src="./images/background3.jpg"
@@ -38,44 +41,19 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
 
     <div class=" container">
       <div>
+        <br/>
         <h3>Introduction</h1>
         <div>
           <p>
-            The National Basketball Association is one of the most popular
-            sports leagues in not only America, but the whole world. It has fans
-            all across the United States, and in many countries that also share
-            an appreciation for elite basketball talent. The league was
-            established in 1946, and today has 30 total teams. Each team signs
-            players to play with them through contracts, some of which can reach
-            the range of hundreds of millions of dollars over a few years!<br /><br />
-            Many players, however, will move between teams when these contracts
-            expire through a process known as Free Agency. These free agents are
-            in contact with other teams, allowing them to play in a more
-            preferable city, or on a team that was greater chances of winning a
-            National Championship, or simply for more money. However, these
-            matchings are, at times, not optimal. Players may land in a team
-            that cannot use their abilities to the fullest potential, for
-            periods of multiple years, or lesser-known players may not be given
-            the attention they deserve, making teams glaze over their numbers
-            and preventing what could have been an optimal match. These
-            sub-optimal matchings are the target of our project: a
-            recommendation system.<br /><br />
-            We are proposing to utilize a matching algorithm that could ensure
-            greater pairings for free agents and NBA teams than the turnouts
-            that the current process leads to. These teams can use a
-            nearest-neighbor matching algorithm to analyze the pool of player
-            statistics, allowing them to see which player is the best match. An
-            addition, a k-means clustering algorithm could help to categorize
-            these players into groups, further facilitating the recruitment
-            process for these NBA teams. Based on the results of these
-            algorithms, NBA teams will receive suggestions for the best players
-            that would fit their team. This would help create the best outcome
-            for each team, contribute to a more balanced league, and leave
-            everyone happy.
+            The National Basketball Association is one of the most popular sports leagues in not only America, but the whole world. It has fans all across the United States, and in many countries that also share an appreciation for elite basketball talent. The league was established in 1946, and today has 30 total teams. Each team signs players to play with them through contracts, some of which can reach the range of hundreds of millions of dollars over a few years!
+            <br /><br />
+            Many players, however, will move between teams when these contracts expire through a process known as Free Agency. These free agents are in contact with other teams, allowing them to play in a more preferable city, or on a team that has greater chances of winning a National Championship, or simply for more money. However, these matchings are, at times, not optimal. Players may land in a team that cannot use their abilities to the fullest potential, for periods of multiple years, or lesser-known players may not be given the attention they deserve, making teams glaze over their numbers and preventing what could have been an optimal match. These sub-optimal matchings, supported by empirical evidence, are the target of our project: a recommendation system.
+            <br /><br />
+            We are proposing to utilize a matching algorithm that could ensure greater pairings for free agents and NBA teams. Comparing the statistics of a team to the league average, we can form an imaginary ideal-player for the team. Then, using a nearest-neighbor matching algorithm, we analyze the pool of players and find players that are most similar to the ideal player. This allows the team to see which player is the best match. Based on the results of these algorithms, NBA teams will receive suggestions for the best players that would fit their team. Teams could use this tool to find free agents that they may not have considered before, possibly leading to better results.This would help create the best outcome for each team, contribute to a more balanced league, and leave everyone happy.
           </p>
 
           

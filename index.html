@@ -16,13 +16,16 @@
     <div class="container">
       <ul class="nav nav-tabs bg-light">
         <li class="navbar-brand">NBA Player Recommender</li>
-        <li class="nav-item" style="width: 20%">
-          <a class="nav-link active" href="index.html">Option 1</a>
+        <li class="nav-item" style="width: 15%">
+          <a class="nav-link active" href="index.html">Home</a>
         </li>
-        <li class="nav-item" style="width: 20%">
-          <a class="nav-link" href="index2.html">Option 2</a>
+        <li class="nav-item" style="width: 15%">
+            <a class="nav-link" href="option1.html">Option 1</a>
+          </li>
+        <li class="nav-item" style="width: 15%">
+          <a class="nav-link" href="option2.html">Option 2</a>
         </li>
-        <li class="nav-item" style="width: 20%">
+        <li class="nav-item" style="width: 15%">
           <a class="nav-link" href="about.html">About</a>
         </li>
       </ul>
@@ -41,85 +44,12 @@
     </div>
 
     <div class="container">
-      <br/><h3>Option 1: Find ideal players for your team</h3><br/>
-
-      <div class="input">
-        <form style="display: inline-block;">
-          <select id="team">
-            <option value="Atlanta Hawks" selected>Atlanta Hawks</option>
-            <option value="Boston Celtics">Boston Celtics</option>
-            <option value="Brooklyn Nets">Brooklyn Nets</option>
-            <option value="Charlotte Hornets">Charlotte Hornets</option>
-            <option value="Chicago Bulls">Chicago Bulls</option>
-            <option value="Cleveland Cavaliers">Cleveland Cavaliers</option>
-            <option value="Dallas Mavericks">Dallas Mavericks</option>
-            <option value="Denver Nuggets">Denver Nuggets</option>
-            <option value="Detroit Pistons">Detroit Pistons</option>
-            <option value="Golden State Warriors">Golden State Warriors</option>
-            <option value="Houston Rockets">Houston Rockets</option>
-            <option value="Indiana Pacers">Indiana Pacers</option>
-            <option value="LA Clippers">LA Clippers</option>
-            <option value="Los Angeles Lakers">Los Angeles Lakers</option>
-            <option value="Memphis Grizlies">Memphis Grizlies</option>
-            <option value="Miami Heat">Miami Heat</option>
-            <option value="Milwaukee Bucks">Milwaukee Bucks</option>
-            <option value="Minnesota Timberwolves"
-              >Minnesota Timberwolves</option
-            >
-            <option value="New Orleans Pelicans">New Orleans Pelicans</option>
-            <option value="New York Knicks">New York Knicks</option>
-            <option value="Oklahoma City Thunder">Oklahoma City Thunder</option>
-            <option value="Orlanda Magic">Orlanda Magic</option>
-            <option value="Philadelphia 76ers">Philadelphia 76ers</option>
-            <option value="Phoenix Suns">Phoenix Suns</option>
-            <option value="Portland Trail Blazers"
-              >Portland Trail Blazers</option
-            >
-            <option value="Sacremento Kings">Sacremento Kings</option>
-            <option value="San Antonio Spurs">San Antonio Spurs</option>
-            <option value="Toronto Raptors">Toronto Raptors</option>
-            <option value="Utah Jazz">Utah Jazz</option>
-            <option value="Washington Wizards">Washington Wizards</option>
-          </select>
-        </form>
-
-        <!-- <input
-          type="text"
-          id="playerNumber"
-          name="teamBox"
-          placeholder="Limit of players"
-        /><br /> -->
-        <form style="display: inline-block;">
-          <select id="playerNumber">
-            <option value="1" selected>1</option>
-            <option value="2" selected>2</option>
-            <option value="3" selected>3</option>
-            <option value="4" selected>4</option>
-            <option value="5" selected>5</option>
-            <option value="6" selected>6</option>
-            <option value="7" selected>7</option>
-            <option value="8" selected>8</option>
-            <option value="9" selected>9</option>
-            <option value="10" selected>10</option>
-          </select>
-        </form>
-        <br/><br/>
-        <button type="button" class="btn btn-primary" onclick="find_player()">
-          Search Players
-        </button>
-        <button type="button" class="btn btn-warning" onclick="refresh()">
-          Reset
-        </button>
-      </div>
-      <div class="output">
-        <br />
-        <p id="players"></p>
-        <br />
-      </div>
-
-      <div class="row" style="height: 500px"></div>
+      <br/><h3>Please select an option at the Navigation Bar...</h5><br/>
+      <h4>Option 1: Find ideal players for your team</h3>
+      <h4>Option 2: Find someone similar to a specific player</h3>
+      
     </div>
+    <div class="row" style="height: 500px"></div>
 
-    <script src="src/main.js"></script>
   </body>
 </html>
