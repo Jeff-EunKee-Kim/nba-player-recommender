@@ -32,11 +32,11 @@ function find_sim_player() {
             response = JSON.parse(xhr.responseText);
             
             players = response.Players;
-            console.log(players)
+            // console.log(players)
             text = "<br>";
 
             for (var i = 0; i < players.length; i++) {
-                console.log(players[i]);
+                // console.log(players[i]);
                 var split = players[i][0].split(" ");
                 imglink = "https://nba-players.herokuapp.com/players/" + split[1] + "/" + split[0];
                 var xml = new XMLHttpRequest();
