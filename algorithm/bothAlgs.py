@@ -23,7 +23,7 @@ def openCSV():
         # stats we are looking for
         # looking_for_stats = ['AST_PCT', 'AST_TO', 'OREB_PCT',
         #                      'DREB_PCT', 'TM_TOV_PCT', 'EFG_PCT', 'TS_PCT', 'PACE']
-        looking_for_stats = ['AGE', 'FG_PCT', 'FG3_PCT','FT_PCT','REB', 'AST','TOV','STL','BLK']
+        looking_for_stats = ['FG_PCT', 'FG3_PCT','FT_PCT','REB', 'AST','TOV','STL','BLK']
 
         # get category indeces that we want
         want_categories = []
