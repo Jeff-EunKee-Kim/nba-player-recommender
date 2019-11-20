@@ -31,14 +31,13 @@ function find_sim_player() {
             // alert(xhr.responseText);
             response = JSON.parse(xhr.responseText);
             
-            team = response.Team;
             players = response.Players;
-            console.log(team)
             console.log(players)
             text = "<br>";
 
             for (var i = 0; i < players.length; i++) {
-                var split = players[i].split(" ");
+                console.log(players[i]);
+                var split = players[i][0].split(" ");
                 imglink = "https://nba-players.herokuapp.com/players/" + split[1] + "/" + split[0];
                 var xml = new XMLHttpRequest();
                 xml.open('GET', imglink, false);
@@ -46,12 +45,12 @@ function find_sim_player() {
                 var res = xml.responseText;
 
                 if(res.startsWith("Sorry")) {
-                    text += (i + 1).toString() + ". " + players[i] + "    (No image Available) <br>";
+                    text += (i + 1).toString() + ". " + players[i][0] + "    (No image Available) <br>";
                 }else{
-                    text += (i + 1).toString() + ". " + players[i] + "<img src=" + imglink + " alt=" + players[i] + "> <br>";
+                    text += (i + 1).toString() + ". " + players[i][0] + "<img src=" + imglink + " alt=" + players[i] + "> <br>";
                 }
             }
-            document.getElementById("players").innerHTML = "Team is: " + team + "<br>" + "Players are: " + text;
+            document.getElementById("players").innerHTML = "Players are: " + text;
         }
     }
 }
