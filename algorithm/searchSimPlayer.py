@@ -67,24 +67,14 @@ def openCSV():
 
         return avg_stats, eachteam_stats_out, categories
 
-# get the IDs of all the teams
-def getTeamIDs(eachteam_stats):
-    # maps team ID to name of team
-    team_id_dict = dict()
-
-    for i in eachteam_stats:
-        team_id_dict[eachteam_stats[i][0]] = i
-
-    return team_id_dict
-
 # get the stats of the player you are searching for
-def getTargetStats(player, categories, avg_dict):
+def getTargetStats(player, categories, avg_dict, my_team):
 
     # Get target stats for ideal player
     target_stats = dict()
 
     # get dictionary of players
-    playerDict = getPlayerDict()
+    playerDict = getPlayerDict(my_team)
 
     # find stats for the query player
     my_player = formatName(player)
@@ -97,7 +87,7 @@ def getTargetStats(player, categories, avg_dict):
     return target_stats, playerDict
 
 # get a dictionary with all the players and their stats
-def getPlayerDict():
+def getPlayerDict(my_team):
 
     playerDict = dict()
 
@@ -125,7 +115,11 @@ def getPlayerDict():
         for line in linereader:
             name = formatName(line[1])
 
-            # filtering
+            # filtering based on team
+            # print(my_team)
+            # print(line)
+
+            # filtering based on time and games played
             mpg_val = float(line[mpg_index])
             gp_val = int(line[gp_index])
             # if play under 7 minutes on average, or less than 15 games, skip them
@@ -159,7 +153,9 @@ def closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, m
     # look through all players
     for player in playerDict:
         # only check players not on the team of person searching
-        if int(playerDict[player][2]) != team_id:
+        # print(playerDict[player][2])
+        # print(playerDict[player][2])
+        if int(playerDict[player][2]) != int(team_id):
             # look through stats we want to compare
             compStats = []
             for stat in statCategories:
@@ -198,13 +194,18 @@ def compute_cos_similarity(point1, point2):
     return float(numerator)/float(denominator)
 
 # get ID of the team you are on, so you don't get players on your team in the search
-def getTeamID(my_team, team_id_dict):
-    my_team_name = formatName(my_team)
-    team_id = 0
-    for team in team_id_dict.keys():
-        if team_id_dict[team] == my_team_name:
-            team_id = int(team)
-            break
+def getTeamID(my_team):
+    filename = '../advanced.csv'
+
+    # Getting all of the resident rankings
+    with open(filename) as file:
+        linereader = csv.reader(file)
+
+        # look through all lines to find your team
+        for line in linereader:
+            this_team = line[1]
+            if formatName(this_team) == my_team:
+                team_id = line[0]
 
     return team_id
 
@@ -213,22 +214,19 @@ def getTeamID(my_team, team_id_dict):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "atlantahawks"
+    my_team = "goldenstatewarriors"
     n = 8
-    player = "quinn cook"
+    player = "stephen curry"
     ######### Query #########
 
     # get average stats
     avg_dict, eachteam_stats, categories = openCSV()
 
-    # get team id's
-    team_id_dict = getTeamIDs(eachteam_stats)
-
     # get target stats for ideal player
-    target_stats, playerDict = getTargetStats(player, categories, avg_dict)
+    target_stats, playerDict = getTargetStats(player, categories, avg_dict, my_team)
 
     # get the team_id of the team that wants recommendations
-    team_id = getTeamID(my_team, team_id_dict)
+    team_id = getTeamID(my_team)
 
     closestPlayers = closestPlayers(target_stats, playerDict, avg_dict, team_id, categories, n, player)
 
