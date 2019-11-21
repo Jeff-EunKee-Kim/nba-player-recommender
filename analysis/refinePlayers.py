@@ -1,12 +1,11 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import csv
-import types
 
-my_data = np.genfromtxt('1516unrefined.csv',
+my_data = np.genfromtxt('1718playersUnrefined.csv',
                         delimiter=',', encoding='utf-8', dtype=None)
 
-with open('1516yet.csv', mode='w', newline='') as nicePER:
+
+with open('1718player.csv', mode='w', newline='') as nicePER:
     perWriter = csv.writer(
         nicePER, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
@@ -16,4 +15,3 @@ with open('1516yet.csv', mode='w', newline='') as nicePER:
                 continue
             row[col] = row[col].strip().replace('"', "")
         perWriter.writerow(row)
-
