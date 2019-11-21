@@ -213,9 +213,9 @@ def getTeamID(my_team, team_id_dict):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "atlantahawks"
+    my_team = "miamiheat"
     n = 8
-    player = "quinn cook"
+    player = "lebronjames"
     ######### Query #########
 
     # get average stats
