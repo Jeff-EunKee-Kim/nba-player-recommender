@@ -204,8 +204,9 @@ def getTeamID(my_team):
         # look through all lines to find your team
         for line in linereader:
             this_team = line[1]
-            if formatName(this_team) == my_team:
+            if formatName(this_team) == formatName(my_team):
                 team_id = line[0]
+                break
 
     return team_id
 
@@ -214,9 +215,9 @@ def getTeamID(my_team):
 if __name__ == '__main__':
 
     ######### Query #########
-    my_team = "goldenstatewarriors"
+    my_team = "miami heat"
     n = 8
-    player = "stephen curry"
+    player = "lebronjames"
     ######### Query #########
 
     # get average stats
