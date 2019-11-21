@@ -19,6 +19,7 @@ for line in player_1819:
 
 # for all teams
 for team in teamPER:
+    # withoutStarting = teamPER[team]
     withoutStarting = teamPER[team][5:]
     print("%s without 5 starting: " % (team))
     print(withoutStarting)
@@ -29,7 +30,7 @@ for team in teamPER:
 teamOfInterest = "POR"
 without5 = teamPER[teamOfInterest][5:]
 
-print("%s without 5 starting: " % (teamOfInterest))
-print(without5)
-print("Average: %f" % (np.average(without5)))
-print()
+# print("%s without 5 starting: " % (teamOfInterest))
+# print(without5)
+# print("Average: %f" % (np.average(without5)))
+# print()
