@@ -4,7 +4,7 @@ This is a software that will recommend NBA players to a specific team based sole
 
 
 ## How to use
-Visit the [website](https://jeff-eunkee-kim.github.io/nba-player-recommender/) and input your team of interest and the number of players you want to be recommended. 
+Visit the [website](https://agkee.github.io/nba-player-recommender/) and input your team of interest and the number of players you want to be recommended. 
 
 Example) Boston Celtics, 10
 
